@@ -23,13 +23,15 @@ module GERALDINE
 
 using LinearAlgebra, Statistics
 
+import Base.println
+
 
 export OPTIM_AGRESSIVE_AG, OPTIM_BFGS, OPTIM_btr_TH, OPTIM_btr_BFGS, btr_BFGS, OPTIM_AGRESSIVE_RSAG, stop_stochastic_1
 
 include("State/main.jl")
 include("stop.jl")
 include("AG/main.jl")
-include("BFGS.jl")
+include("BFGS2.jl")
 include("BTR/BTRBASE.jl")
 include("BTR/BTR_True_Hessian.jl")
 include("BTR/BTR_BFGS.jl")
