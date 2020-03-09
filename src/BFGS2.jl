@@ -26,9 +26,9 @@ function update!(b::BFGS, y::Vector, s::Vector)
     else
         Bs = b.H*s
         b.H = b.H-(Bs*Bs')/dot(s, Bs)+(y*y')/dot(s, y)
-    
-        term_1 = Array{Float64, 2}(I, b.dim, b.dim)- (s*y')/(y'*s)
-        term_2 = Array{Float64, 2}(I, b.dim, b.dim) - (y*s')/(y'*s)
+        dim = size(b.H, 1)
+        term_1 = Array{Float64, 2}(I, dim, dim)- (s*y')/(y'*s)
+        term_2 = Array{Float64, 2}(I, dim, dim) - (y*s')/(y'*s)
         b.inv = term_1*b.inv*term_2+(s*s')/(y'*s)
     end
 end
