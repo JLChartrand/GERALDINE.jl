@@ -21,13 +21,14 @@ function update!(b::BFGS, y::Vector, s::Vector)
         n = length(y)
         b.H = Array{Float64, 2}(I, n, n)
         b.inv = Array{Float64, 2}(I, n, n)
-    end
-    Bs = b.H*s
-    b.H = b.H-(Bs*Bs')/dot(s, Bs)+(y*y')/dot(s, y)
+    else
+        Bs = b.H*s
+        b.H = b.H-(Bs*Bs')/dot(s, Bs)+(y*y')/dot(s, y)
     
-    term_1 = Array{Float64, 2}(I, b.dim, b.dim)- (s*y')/(y'*s)
-    term_2 = Array{Float64, 2}(I, b.dim, b.dim) - (y*s')/(y'*s)
-    b.inv = term_1*b.inv*term_2+(s*s')/(y'*s)
+        term_1 = Array{Float64, 2}(I, b.dim, b.dim)- (s*y')/(y'*s)
+        term_2 = Array{Float64, 2}(I, b.dim, b.dim) - (y*s')/(y'*s)
+        b.inv = term_1*b.inv*term_2+(s*s')/(y'*s)
+    end
 end
 
 function direction(grad::Vector, x::Vector, bfgs::BFGS)
