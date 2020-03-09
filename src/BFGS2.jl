@@ -49,7 +49,7 @@ function optimize(f::Function, ∇f!::Function, x_0::Vector;
     grad = zeros(length(x_0))
     x = copy(x_0)
     ∇f!(x, grad)
-    bfgs = Bfgs(length(x), m)
+    bfgs = Bfgs(length(x))
     α_k = Arimijo(f, x, -grad, grad)
     
     s_k = -α_k*grad
