@@ -45,7 +45,7 @@ function Arimijo(f::Function, x::Vector, d::Vector, grad::Vector, β::Float64 = 
 end
 
 function optimize(f::Function, ∇f!::Function, x_0::Vector;
-        nmax::Int64 = 500, epsilon::Float64 = 1e-4, Bfgs::BFGS = BFGS(), verbose::Bool = false)
+        nmax::Int64 = 500, epsilon::Float64 = 1e-4, Bfgs::Type = BFGS, verbose::Bool = false)
     grad = zeros(length(x_0))
     x = copy(x_0)
     ∇f!(x, grad)
