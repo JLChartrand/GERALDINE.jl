@@ -62,7 +62,10 @@ function optimize(f::Function, ∇f!::Function, x_0::Vector;
     y_k = new_grad - grad
     
     update!(bfgs, y_k, s_k)
-    
+    if verbose
+        println(bfgs.H)
+        println(bfgs.inv)
+    end
     grad[:] = new_grad
     it = 1
     while !Stop_optimize_weak(norm(grad), it, tol = epsilon, nmax = nmax)
