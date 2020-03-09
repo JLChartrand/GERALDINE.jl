@@ -7,9 +7,7 @@ mutable struct BFGS <: Approx
     function BFGS()
         n = new()
         n.First = true
-        n.H = [1.0 0; 0 1]
-        n.inv = [1.0 0; 0 1]
-        return new()
+        return n
     end
 end
 
@@ -60,11 +58,6 @@ function optimize(f::Function, ∇f!::Function, x_0::Vector;
     new_grad = zeros(length(x_0))
     ∇f!(x, new_grad)
     y_k = new_grad - grad
-    if verbose
-        println("before update, first = $(bfgs.First)")
-        println(bfgs.H)
-        println(bfgs.inv)
-    end
     update!(bfgs, y_k, s_k)
     grad[:] = new_grad
     it = 1
