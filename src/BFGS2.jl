@@ -4,7 +4,7 @@ mutable struct BFGS <: Approx
     H::Matrix
     inv::Matrix
     First::Bool
-    function BFGS() #m is a dumy parameter
+    function BFGS()
         n = new()
         n.First = true
         n.H = [1.0 0; 0 1]
@@ -60,12 +60,12 @@ function optimize(f::Function, ∇f!::Function, x_0::Vector;
     new_grad = zeros(length(x_0))
     ∇f!(x, new_grad)
     y_k = new_grad - grad
-    
-    update!(bfgs, y_k, s_k)
     if verbose
+        println("before update, first = $(bfgs.First)")
         println(bfgs.H)
         println(bfgs.inv)
     end
+    update!(bfgs, y_k, s_k)
     grad[:] = new_grad
     it = 1
     while !Stop_optimize_weak(norm(grad), it, tol = epsilon, nmax = nmax)
