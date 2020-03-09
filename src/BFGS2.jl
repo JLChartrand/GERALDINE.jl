@@ -7,6 +7,8 @@ mutable struct BFGS <: Approx
     function BFGS() #m is a dumy parameter
         n = new()
         n.First = true
+        n.H = [1.0 0; 0 1]
+        n.inv = [1.0 0; 0 1]
         return new()
     end
 end
