@@ -27,7 +27,7 @@ function Stop_optimize_weak(nrm::Float64, k::Int64; tol::Float64 = 1e-5, nmax::I
     if k >= nmax
         return true
     end
-    if norm(grad) < tol
+    if nrm < tol
         return true
     end
     return false
