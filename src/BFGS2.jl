@@ -63,7 +63,7 @@ function optimize(f::Function, ∇f!::Function, x_0::Vector;
     
     grad[:] = new_grad
     it = 1
-    while !Stop_optimize(f(x), grad, it, tol = epsilon)
+    while !Stop_optimize_weak(norm(grad), it, tol = epsilon, nmax = nmax)
         if verbose
             println(x)
         end
