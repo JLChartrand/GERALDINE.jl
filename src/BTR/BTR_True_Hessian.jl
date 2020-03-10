@@ -12,7 +12,7 @@ function OPTIM_btr_TH(f::Function, g!::Function, H!::Function,
     state = BTRState(H)
     state.x = copy(x0)
     state.iter = 0
-    state.g = zeros(length(x0))
+    state.grad = zeros(length(x0))
         
     
     state, accumulator = btr(f, g!, H!, state, x0, 

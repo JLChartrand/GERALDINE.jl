@@ -13,7 +13,7 @@ mutable struct BTRState{T} <: AbstractState where T
     iter::Int64
     x::Vector
     xcand::Vector
-    g::Vector
+    grad::Vector
     H::T
     step::Vector
     Δ::Float64
@@ -63,7 +63,7 @@ end
 
 function TruncatedCG(state::BTRState)
     H = state.H
-    g = state.g
+    g = state.grad
     Δ = state.Δ*state.Δ
     n = length(g)
     s = zeros(n)
@@ -109,8 +109,8 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
         accumulate!::Function, accumulator::Array)
     b = BTRDefaults()
     state.fx = f(x0)
-    g!(x0, state.g)
-    state.Δ = 0.1*norm(state.g)
+    g!(x0, state.grad)
+    state.Δ = 0.1*norm(state.grad)
     H!(x0, state.H)
     
 
@@ -127,10 +127,10 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
         state.step = TruncatedCG(state, H)
         state.xcand = state.x+state.step
         fcand = f(state.xcand)
-        state.ρ = (fcand-state.fx)/(dot(state.s, state.g)+0.5*dot(state.s, state.H*state.s))
+        state.ρ = (fcand-state.fx)/(dot(state.s, state.grad)+0.5*dot(state.s, state.H*state.s))
         if acceptCandidate!(state, b)
             state.x = copy(state.xcand)
-            g!(state.x, state.g)
+            g!(state.x, state.grad)
             H!(state.x, state.H)
             
             state.fx = fcand
