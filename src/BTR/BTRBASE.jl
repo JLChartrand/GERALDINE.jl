@@ -124,7 +124,7 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
             println(state)
         end
         
-        state.step = TruncatedCG(state, state.H)
+        state.step = TruncatedCG(state)
         state.xcand = state.x+state.step
         fcand = f(state.xcand)
         state.ρ = (fcand-state.fx)/(dot(state.s, state.grad)+0.5*dot(state.s, state.H*state.s))
