@@ -17,11 +17,6 @@ mutable struct AGState <: AbstractState
     end
 end
 
-import Base.println
-
-function println(a::AGState)
-    println("Iteration", a.it, ", fx = ", a.fx_md, "||∇f(x)|| = ", norm(n.∇f_md))
-    
-    println(round.(a.x_md, digits = 3))
+function Stop_optimize_weak(st::AbstractState; tol::Float64 = 1e-5, nmax::Int64 = 500)
+    return Stop_optimize_weak(norm(st.∇f_md), st.it; tol = tol, nmax = nmax)
 end
-    

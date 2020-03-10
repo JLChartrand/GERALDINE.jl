@@ -1,8 +1,9 @@
 function AG(f::Function, ∇f!::Function,
         α::Function, β::Function, γ::Function, state::AGState;
-        nmax::Int64 = 500, epsilon::Float64 = 1e-4, verbose::Bool = false, accumulate!::Function = (x,y) -> nothing, acc = [])
+        nmax::Int64 = 500, epsilon::Float64 = 1e-4, verbose::Bool = false, 
+        accumulate!::Function = (x,y) -> nothing, acc = [])
     
-    while !Stop_optimize(state.fx_md , state.∇f_md, state.it, nmax = nmax, tol = epsilon)
+    while !Stop_optimize(state, nmax = nmax, tol = epsilon)
         state.it += 1
         accumulate!(state, acc)
         if verbose
@@ -23,7 +24,7 @@ function AG(f::Function, ∇f!::Function,
     return state, acc
 end
 
-function OPTIM_AGRESSIVE_AG(f::Function, ∇f!::Function; x0::Vector, L::Float64, nmax::Int64 = 500, 
+function OPTIM_AGRESSIVE_AG(f::Function, ∇f!::Function, x0::Vector, L::Float64; nmax::Int64 = 500, 
         epsilon::Float64 = 1e-4, verbose::Bool = false, acc!::Function = (sta, acc) -> nothing, acc = [])
     
     α = (k::Int64 -> 2/(k+1))

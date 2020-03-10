@@ -32,3 +32,9 @@ function Stop_optimize_weak(nrm::Float64, k::Int64; tol::Float64 = 1e-5, nmax::I
     end
     return false
 end
+
+function Stop_optimize_weak(st::AbstractState; tol::Float64 = 1e-5, nmax::Int64 = 500)
+    return Stop_optimize_weak(norm(st.grad), st.it; tol = tol, nmax = nmax)
+end
+
+stop = Stop_optimize_weak
