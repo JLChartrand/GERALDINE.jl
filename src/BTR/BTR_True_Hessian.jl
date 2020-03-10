@@ -1,12 +1,9 @@
 function OPTIM_btr_TH(f::Function, g!::Function, H!::Function, 
                 x0::Vector; verbose::Bool = true, 
-                nmax::Int64 = 1000, epsilon::Float64 = 1e-4)
+                nmax::Int64 = 1000, epsilon::Float64 = 1e-4, 
+                accumulate! = (st, acc) -> nothing, accumulator = [])
         
-        
-    function accumulate!(state::BTRState{Matrix}, acc::Vector)
-        push!(acc, state.fx)
-    end
-    accumulator = []
+    
         
     H = Array{Float64, 2}(I, length(x0), length(x0))
     state = BTRState(H)
