@@ -64,7 +64,7 @@ function OPTIM_btr_BFGS(f::Function, g!::Function, x0::Vector; verbose::Bool = t
     state.x = x0
     state.it = 0
     state.grad = zeros(length(x0))
-    state, accumulator = btr(f, g!, state, x0,
+    state, accumulator = btr_bfgs(f, g!, state, x0,
         verbose = verbose, nmax = nmax, epsilon = epsilon, accumulate! = (st, acc) -> nothing, accumulator = [])
     return state.x, state, accumulator
 end
