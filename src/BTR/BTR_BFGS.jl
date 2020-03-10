@@ -29,8 +29,6 @@ function btr_bfgs(f::Function, g!::Function, state::BTRState{BFGS_Matrix}, x0::V
     state.fx = f(x0)
     g!(x0, state.grad)
     state.Δ = 0.1*norm(state.grad)
-    H!(x0, state.H)
-    
     oldGrad = copy(state.grad)
     y = zeros(length(x0))
     while (!stop(state, nmax = nmax, tol = epsilon))
