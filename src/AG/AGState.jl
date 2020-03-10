@@ -17,6 +17,6 @@ mutable struct AGState <: AbstractState
     end
 end
 
-function Stop_optimize_weak(st::AbstractState; tol::Float64 = 1e-5, nmax::Int64 = 500)
+function Stop_optimize_weak_AG(st::AbstractState; tol::Float64 = 1e-5, nmax::Int64 = 500)
     return Stop_optimize_weak(norm(st.∇f_md), st.it; tol = tol, nmax = nmax)
 end
