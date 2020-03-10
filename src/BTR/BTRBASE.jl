@@ -26,7 +26,6 @@ mutable struct BTRState{T} <: AbstractState where T
     end
 end
 
-import Base.println
 
 function println(state::BTRState)
     println(round(state.x, digits = 3))

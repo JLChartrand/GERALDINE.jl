@@ -12,7 +12,7 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
         return dot(s, g)+0.5*dot(s, H*s)
     end
     
-    while !Stop_optimize(state.fx, state.g, state.iter, nmax = nmax, tol = epsilon)
+    while !stop(state, nmax = nmax, tol = epsilon)
         accumulate!(state, accumulator)
         if verbose
             println(state)
@@ -55,5 +55,5 @@ function OPTIM_btr_TH(f::Function, g!::Function, H!::Function,
     
     state, accumulator = btr(f, g!, H!, state, x0, 
                 verbose = verbose, nmax = nmax, epsilon = epsilon, accumulate! = accumulate!, accumulator = accumulator)
-    return state, accumulator
+    return state.x, state, accumulator
 end
