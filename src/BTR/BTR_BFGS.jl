@@ -29,7 +29,7 @@ function OPTIM_btr_BFGS(f::Function, g!::Function, x0::Vector; verbose::Bool = t
     accumulator = []
     state = BTRState(BFGS_Matrix(H))
     state.x = x0
-    state.iter = 0
+    state.it = 0
     state.g = zeros(length(x0))
     state, accumulator = btr(f, g!, state, x0,
         verbose = verbose, nmax = nmax, epsilon = epsilon, accumulate! = accumulate!, accumulator = accumulator)

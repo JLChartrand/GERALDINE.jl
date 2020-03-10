@@ -11,7 +11,7 @@ function OPTIM_btr_TH(f::Function, g!::Function, H!::Function,
     H = Array{Float64, 2}(I, length(x0), length(x0))
     state = BTRState(H)
     state.x = copy(x0)
-    state.iter = 0
+    state.it = 0
     state.grad = zeros(length(x0))
         
     

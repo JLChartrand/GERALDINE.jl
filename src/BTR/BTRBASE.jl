@@ -10,7 +10,7 @@ function BTRDefaults()
 end
 
 mutable struct BTRState{T} <: AbstractState where T
-    iter::Int64
+    it::Int64
     x::Vector
     xcand::Vector
     grad::Vector
@@ -136,7 +136,7 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
             state.fx = fcand
         end
         updateRadius!(state, b)
-        state.iter += 1
+        state.it += 1
     end
     return state, accumulator
 end
