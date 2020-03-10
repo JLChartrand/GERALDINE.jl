@@ -113,10 +113,6 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
     state.Δ = 0.1*norm(state.grad)
     H!(x0, state.H)
     
-
-    function model(s::Vector, g::Vector, H::Matrix)
-        return dot(s, g)+0.5*dot(s, H*s)
-    end
     
     while (!stop(state, nmax = nmax, tol = epsilon))
         accumulate!(state, accumulator)
@@ -127,7 +123,7 @@ function btr(f::Function, g!::Function, H!::Function, state::BTRState{Array{Floa
         state.step = TruncatedCG(state)
         state.xcand = state.x+state.step
         fcand = f(state.xcand)
-        state.ρ = (fcand-state.fx)/(dot(state.s, state.grad)+0.5*dot(state.s, state.H*state.s))
+        state.ρ = (fcand-state.fx)/(dot(state.step, state.grad)+0.5*dot(state.step, state.H*state.step))
         if acceptCandidate!(state, b)
             state.x = copy(state.xcand)
             g!(state.x, state.grad)
