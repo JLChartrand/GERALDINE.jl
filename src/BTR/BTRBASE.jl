@@ -28,7 +28,7 @@ end
 
 
 function println(state::BTRState)
-    println(round(state.x, digits = 3))
+    println(round.(state.x, digits = 3))
 end
 function acceptCandidate!(state::BTRState, b::BasicTrustRegion)
     if state.ρ >= b.η1
