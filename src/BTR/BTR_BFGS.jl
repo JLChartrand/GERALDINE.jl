@@ -22,7 +22,7 @@ function setindex!(a::BFGS_Matrix, value, index...)
 end
 
 
-function btr_bfgs(f::Function, g!::Function, state::BTRState{Array{Float64,2}}, x0::Vector; 
+function btr_bfgs(f::Function, g!::Function, state::BTRState{BFGS_Matrix}, x0::Vector; 
         verbose::Bool = true, nmax::Int64 = 1000, epsilon::Float64 = 1e-6, 
         accumulate!::Function, accumulator::Array)
     b = BTRDefaults()
