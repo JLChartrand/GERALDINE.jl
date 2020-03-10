@@ -24,6 +24,9 @@ robust stoping criteria
 """
 
 function Stop_optimize_weak(nrm::Float64, k::Int64; tol::Float64 = 1e-5, nmax::Int64 = 500)
+    if k<1
+        return false
+    end
     if k >= nmax
         return true
     end
