@@ -20,3 +20,11 @@ end
 function Stop_optimize_weak_AG(st::AbstractState; tol::Float64 = 1e-5, nmax::Int64 = 500)
     return Stop_optimize_weak(norm(st.∇f_md), st.it; tol = tol, nmax = nmax)
 end
+
+function println(st::AGState)
+    println("it = $(st.it)")
+    println("x = $(round.(st.x, digits = 3))")
+    println("x_ag = $(round.(st.x_ag, digits = 3))")
+    println("x_md = $(round.(st.x_md, digits = 3))")
+    println("grad = $(st.∇f_md)")
+end
