@@ -36,5 +36,5 @@ function OPTIM_AGRESSIVE_AG(f::Function, ∇f!::Function, x0::Vector, L::Float64
     state, acc = AG(f::Function, ∇f!::Function, α, β, γ, state;
         nmax = nmax, epsilon = epsilon, verbose = verbose, accumulate! = accumulate!, acc = acc)
     
-    return state.x_md
+    return state.x_md, state, acc
 end
