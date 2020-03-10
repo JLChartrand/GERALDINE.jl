@@ -16,7 +16,7 @@ function AG(f::Function, ∇f!::Function,
         state.x_md = (1-α_k)*state.x_ag + α_k*state.x
         
         ∇f!(state.x_md, state.∇f_md)
-        state.fx_md = f(x_md) 
+        state.fx_md = f(state.x_md) 
         
         state.x -= γ_k*state.∇f_md
         state.x_ag = state.x_md - β_k*state.∇f_md
